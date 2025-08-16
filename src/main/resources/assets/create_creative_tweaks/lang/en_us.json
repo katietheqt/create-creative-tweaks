@@ -1,0 +1,9 @@
+{
+  "create_creative_tweaks.burner.header": "Blaze Burner Info",
+  "create_creative_tweaks.burner.tooltip": "%1$s for %2$ss",
+  "create_creative_tweaks.gui.client_assembly.exception": "This Contraption was unable to simulate assembly",
+  "create_creative_tweaks.gui.client_assembly.header": "Contraption Order",
+  "create_creative_tweaks.gui.client_assembly.state.all": "Showing All",
+  "create_creative_tweaks.gui.client_assembly.state.actors": "Showing Actors/Storages",
+  "create_creative_tweaks.gui.clipboard.edit_json": "Edit as JSON"
+}

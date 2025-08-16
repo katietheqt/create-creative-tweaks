@@ -1,0 +1,42 @@
+{
+  "required": true,
+  "priority": 1100,
+  "package": "cat.katie.createcreativetweaks.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "refmap": "create_creative_tweaks.refmap.json",
+  "mixins": [
+    "ArmInteractionPoint$ModeMixin",
+    "BlazeBurnerBlockEntityMixin",
+    "CogWheelBlockMixin",
+    "ExtendoGripRenderHandlerMixin",
+    "ItemStackMixin",
+    "accessors.ContraptionAccessor",
+    "accessors.MountedStorageManagerAccessor",
+    "accessors.ToolboxInventoryAccessor",
+    "contraption_order.EntityMixin",
+    "contraption_order.GoggleOverlayRendererMixin",
+    "contraption_order.block.BearingBlockMixin",
+    "contraption_order.block.CartAssemblerBlockMixin",
+    "contraption_order.block.GantryCarriageBlockMixin",
+    "contraption_order.block.MechanicalPistonBlockMixin",
+    "contraption_order.block_entity.LinearActuatorBlockEntityMixin",
+    "contraption_order.block_entity.MechanicalBearingBlockEntityMixin",
+    "contraption_order.contraption.ContraptionMixin",
+    "contraption_order.contraption.PistonContraptionMixin",
+    "limits.ArmInteractionPointHandlerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8",
+  "client": [
+    "accessors.RenderTypeAccessor",
+    "contraption_order.LevelRendererMixin",
+    "limits.AddressEditBoxMixin",
+    "limits.ClipboardScreenMixin",
+    "limits.PackagePortScreenMixin",
+    "contraption_order.entity.ControlledContraptionEntityClientMixin",
+    "contraption_order.entity.GantryContraptionEntityClientMixin",
+    "contraption_order.entity.OrientedContraptionEntityClientMixin"
+  ]
+}

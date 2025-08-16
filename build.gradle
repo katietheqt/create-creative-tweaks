@@ -1,0 +1,148 @@
+plugins {
+    id 'idea'
+    id 'maven-publish'
+    id "net.neoforged.moddev.legacyforge" version "2.0.74"
+}
+
+base {
+    archivesName = "create_creative_tweaks"
+    group = 'cat.katie.createcreativetweaks'
+    version = "${mod_version}-for-create-${create_version}"
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
+
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
+
+legacyForge {
+    version = "$minecraft_version-$forge_version"
+
+    // TODO - Try turning this on later see Create
+//    validateAccessTransformers = false
+    accessTransformers.from "src/main/resources/META-INF/accesstransformer.cfg"
+
+    parchment {
+        minecraftVersion = minecraft_version
+        mappingsVersion = parchment_version
+    }
+
+    mods {
+        create_creative_tweaks {
+            sourceSet sourceSets.main
+        }
+    }
+
+    runs {
+        // applies to all the run configs below
+        configureEach {
+            systemProperty 'forge.logging.markers', ''
+            systemProperty 'forge.logging.console.level', 'info'
+            jvmArguments = ["-XX:+IgnoreUnrecognizedVMOptions", "-XX:+AllowEnhancedClassRedefinition"]
+            //jvmArgs("-XX:-OmitStackTraceInFastThrow") // uncomment when you get exceptions with null messages etc
+            //jvmArgs '-XX:+UnlockCommercialFeatures' // uncomment for profiling
+
+            systemProperty 'mixin.debug.export', 'true'
+            systemProperty 'mixin.debug.verbose', 'true'
+
+            programArgument '-mixin.config=create_creative_tweaks.mixins.json'
+        }
+
+        client {
+            client()
+
+            gameDirectory = project.file('run')
+        }
+
+        server {
+            server()
+
+            gameDirectory = project.file('run/server')
+        }
+
+        data {
+            data()
+
+            gameDirectory = project.file('run')
+            systemProperty 'forge.logging.markers', 'REGISTRIES,REGISTRYDUMP'
+            systemProperty 'forge.logging.console.level', 'debug'
+            programArguments.addAll("--mod", "create_creative_tweaks", "--all", "--output", file("src/generated/resources/").getAbsolutePath(), "--existing", file("src/main/resources").getAbsolutePath())
+        }
+
+        gameTestServer {
+            type = "gameTestServer"
+
+            gameDirectory = project.file('run/gametest')
+            // setForceExit false <- FIXME 1.20  see Create
+        }
+    }
+}
+
+repositories {
+    maven { url = "https://maven.createmod.net" } // Ponder, Flywheel
+    maven { url = "https://maven.tterrag.com" } // Registrate
+    maven { url = "https://maven.blamejared.com" } // JEI, Vazkii's Mods
+    maven { url = "https://maven.theillusivec4.top/" } // Curios API
+    maven { url = "https://www.cursemaven.com" }
+    maven { url = "https://api.modrinth.com/maven" }
+}
+
+dependencies {
+    modImplementation("com.simibubi.create:create-${minecraft_version}:${create_version}-${create_version_number}:slim") { transitive = false }
+    modImplementation("net.createmod.ponder:Ponder-Forge-${minecraft_version}:${ponder_version}")
+    modCompileOnly("dev.engine-room.flywheel:flywheel-forge-api-${flywheel_minecraft_version}:${flywheel_version}")
+    modRuntimeOnly("dev.engine-room.flywheel:flywheel-forge-${flywheel_minecraft_version}:${flywheel_version}")
+    modImplementation("com.tterrag.registrate:Registrate:${registrate_version}")
+    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.4.1"))
+    implementation("io.github.llamalad7:mixinextras-forge:0.4.1")
+
+    modCompileOnly("mezz.jei:jei-${jei_minecraft_version}-common-api:${jei_version}")
+    modCompileOnly("mezz.jei:jei-${jei_minecraft_version}-forge-api:${jei_version}")
+    modImplementation("mezz.jei:jei-${jei_minecraft_version}-forge:${jei_version}")
+
+    modCompileOnly("top.theillusivec4.curios:curios-forge:${curios_version}+${curios_minecraft_version}:api")
+    modRuntimeOnly("top.theillusivec4.curios:curios-forge:${curios_version}+${curios_minecraft_version}")
+
+    annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
+}
+
+sourceSets.main.resources {
+    srcDir 'src/generated/resources'
+    exclude ".cache"
+    exclude "assets/create_creative_tweaks/lang-gen"
+    exclude "assets/create_creative_tweaks/lang/default"
+}
+
+mixin {
+    add sourceSets.main, 'create_creative_tweaks.refmap.json'
+    config 'create_creative_tweaks.mixins.json'
+}
+
+
+jar {
+    from('LICENSE') {
+        rename { "${it}_${archivesBaseName}" }
+    }
+    manifest {
+        attributes([
+                "Specification-Title"     : "create_creative_tweaks",
+                "Specification-Vendor"    : "katietheqt",
+                "Specification-Version"   : "1", // We are version 1 of ourselves
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : project.jar.archiveVersion,
+                "Implementation-Vendor"   : "katietheqt",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                'MixinConfigs': 'create_creative_tweaks.mixins.json'
+        ])
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
