@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public class AddressEditBoxMixin {
     @WrapOperation(
             method = "<init>(Lnet/minecraft/client/gui/screens/Screen;Lnet/minecraft/client/gui/Font;IIIIZLjava/lang/String;)V",
+            remap = true,
             at = @At(
                     value = "INVOKE",
                     target = "Lcom/simibubi/create/content/logistics/AddressEditBox;setMaxLength(I)V"

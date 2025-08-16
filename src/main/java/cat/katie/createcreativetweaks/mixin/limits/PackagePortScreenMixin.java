@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public class PackagePortScreenMixin {
     @WrapOperation(
             method = "init",
+            remap = true,
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/client/gui/components/EditBox;setMaxLength(I)V"

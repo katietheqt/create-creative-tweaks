@@ -15,7 +15,8 @@ public class ArmInteractionPointHandlerMixin {
             method = "flushSettings",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/core/BlockPos;closerThan(Lnet/minecraft/core/Vec3i;D)Z"
+                    target = "Lnet/minecraft/core/BlockPos;closerThan(Lnet/minecraft/core/Vec3i;D)Z",
+                    remap = true
             )
     )
     private static boolean disableMechanicalArmRangeLimits(BlockPos instance, Vec3i vector, double distance,

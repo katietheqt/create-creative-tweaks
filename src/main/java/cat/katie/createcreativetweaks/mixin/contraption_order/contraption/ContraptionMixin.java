@@ -118,7 +118,8 @@ public abstract class ContraptionMixin implements ContraptionDuck {
             method = "addBlock",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/world/phys/AABB;minmax(Lnet/minecraft/world/phys/AABB;)Lnet/minecraft/world/phys/AABB;"
+                    target = "Lnet/minecraft/world/phys/AABB;minmax(Lnet/minecraft/world/phys/AABB;)Lnet/minecraft/world/phys/AABB;",
+                    remap = true
             )
     )
     private void logOrderOfAddedBlocks(Level level, BlockPos pos, Pair<StructureTemplate.StructureBlockInfo, BlockEntity> pair, CallbackInfo ci, @Local(ordinal = 1) BlockPos localPos) {
