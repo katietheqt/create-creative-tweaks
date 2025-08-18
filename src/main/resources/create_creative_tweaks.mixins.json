@@ -8,7 +8,6 @@
     "ArmInteractionPoint$ModeMixin",
     "BlazeBurnerBlockEntityMixin",
     "CogWheelBlockMixin",
-    "ContraptionHandlerClientMixin",
     "ExtendoGripRenderHandlerMixin",
     "ItemStackMixin",
     "accessors.ContraptionAccessor",
@@ -38,6 +37,7 @@
     "contraption_order.entity.OrientedContraptionEntityClientMixin",
     "limits.AddressEditBoxMixin",
     "limits.ClipboardScreenMixin",
-    "limits.PackagePortScreenMixin"
+    "limits.PackagePortScreenMixin",
+    "ContraptionHandlerClientMixin"
   ]
 }
