@@ -8,6 +8,7 @@
     "ArmInteractionPoint$ModeMixin",
     "BlazeBurnerBlockEntityMixin",
     "CogWheelBlockMixin",
+    "ContraptionHandlerClientMixin",
     "ExtendoGripRenderHandlerMixin",
     "ItemStackMixin",
     "accessors.ContraptionAccessor",
@@ -32,11 +33,11 @@
   "client": [
     "accessors.RenderTypeAccessor",
     "contraption_order.LevelRendererMixin",
-    "limits.AddressEditBoxMixin",
-    "limits.ClipboardScreenMixin",
-    "limits.PackagePortScreenMixin",
     "contraption_order.entity.ControlledContraptionEntityClientMixin",
     "contraption_order.entity.GantryContraptionEntityClientMixin",
-    "contraption_order.entity.OrientedContraptionEntityClientMixin"
+    "contraption_order.entity.OrientedContraptionEntityClientMixin",
+    "limits.AddressEditBoxMixin",
+    "limits.ClipboardScreenMixin",
+    "limits.PackagePortScreenMixin"
   ]
 }

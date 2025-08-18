@@ -22,6 +22,8 @@ public class CClient extends ConfigBase {
     public final ConfigBool showToolboxTooltip = b(true, "showToolboxTooltip",
             "Adds a tooltip to toolboxes to view their contents"
     );
+    public final ConfigBool clickThroughContraptions = b(false, "clickThroughContraptions",
+            "Allows clicking through normal blocks on contraptions");
 
     // clipboard
     @SuppressWarnings("unused")
